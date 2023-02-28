@@ -1,11 +1,6 @@
-# Pavelzw Pavelzw
+# homebrew-pavelzw
 
-## How do I install these formulae?
+This is a collection of formulae/casks for [Homebrew](https://brew.sh/) that I use but are not in the main repository.
 
-`brew install pavelzw/pavelzw/<formula>`
-
-Or `brew tap pavelzw/pavelzw` and then `brew install <formula>`.
-
-## Documentation
-
-`brew help`, `man brew` or check [Homebrew's documentation](https://docs.brew.sh).
+- [Cemu](https://cemu.info): `brew install --no-quarantine pavelzw/pavelzw/wiiu-cemu`
+- [aicommits](https://github.com/Nutlope/aicommits): `brew install pavelzw/pavelzw/aicommits`
