@@ -5,19 +5,19 @@ class Dvisvgm < Formula
   sha256 "41ff6f5bb975a0f00a50f48a382be12a11a9c515d8cb160ec5950c5f0e71b82e"
   license "GPL-3.0"
 
-  depends_on "autoconf" => :build
-  depends_on "autoconf-archive" => :build
-  depends_on "automake" => :build
-  depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "homebrew/core/autoconf" => :build
+  depends_on "homebrew/core/autoconf-archive" => :build
+  depends_on "homebrew/core/automake" => :build
+  depends_on "homebrew/core/cmake" => :build
+  depends_on "homebrew/core/pkg-config" => :build
 
-  depends_on "brotli"
-  depends_on "freetype"
-  depends_on "ghostscript"
-  depends_on "potrace"
-  depends_on "texlive"
-  depends_on "woff2"
-  depends_on "xxhash"
+  depends_on "homebrew/core/brotli"
+  depends_on "homebrew/core/freetype"
+  depends_on "homebrew/core/ghostscript"
+  depends_on "homebrew/core/potrace"
+  depends_on "homebrew/core/texlive"
+  depends_on "homebrew/core/woff2"
+  depends_on "homebrew/core/xxhash"
   uses_from_macos "zlib"
 
   def install

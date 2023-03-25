@@ -10,7 +10,7 @@ class Clipper2 < Formula
     regex(/^Clipper2_(\d+(?:\.\d+)+)$/i)
   end
 
-  depends_on "cmake" => :build
+  depends_on "homebrew/core/cmake" => :build
 
   def install
     args = ["-DCLIPPER2_TESTS=OFF"]
