@@ -16,7 +16,6 @@ class Clipper2 < Formula
     args = ["-DCLIPPER2_TESTS=OFF"]
 
     chdir "CPP" do
-      # ENV.deparallelize  # if your formula fails when building in parallel
       system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
       system "cmake", "--build", "build"
       system "cmake", "--install", "build"
