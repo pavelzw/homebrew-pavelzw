@@ -34,7 +34,7 @@ class Dvisvgm < Formula
       Hello World!
       \\end{document}
     EOS
-    system "latex", "test.tex"
-    system "dvisvgm", "test.dvi"
+    system "#{HOMEBREW_PREFIX}/bin/latex", "test.tex"
+    system "#{bin}/dvisvgm", "test.dvi"
   end
 end
