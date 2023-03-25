@@ -2,7 +2,7 @@ class Clipper2 < Formula
   desc "Polygon Clipping and Offsetting"
   homepage "http://www.angusj.com/clipper2/Docs/Overview.htm"
   url "https://github.com/AngusJohnson/Clipper2/archive/refs/tags/Clipper2_1.2.0.tar.gz"
-  sha256 "8daa5321400a94a47e722098d505b38f74419c554ce7d77f90fb4f1b77c87fbd"
+  sha256 "cac0ec1d61ac3079e0479728476ba892c3b3800547bd07b0f254cfc80e787a74"
   license "BSL-1.0"
 
   livecheck do
