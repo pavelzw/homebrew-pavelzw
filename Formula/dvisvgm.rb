@@ -3,7 +3,8 @@ class Dvisvgm < Formula
   homepage "https://dvisvgm.de"
   url "https://github.com/mgieseki/dvisvgm/archive/refs/tags/3.0.4.tar.gz"
   sha256 "41ff6f5bb975a0f00a50f48a382be12a11a9c515d8cb160ec5950c5f0e71b82e"
-  license "GPL-3.0"
+  # TODO: -only or -or-later?
+  license "GPL-3.0-or-later"
 
   depends_on "homebrew/core/autoconf" => :build
   depends_on "homebrew/core/autoconf-archive" => :build
