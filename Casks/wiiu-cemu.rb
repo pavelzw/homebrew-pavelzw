@@ -2,8 +2,8 @@
 # https://docs.brew.sh/How-to-Create-and-Maintain-a-Tap#naming
 
 cask "wiiu-cemu" do
-  version "2.0-32"
-  sha256 "c9ba57d9989dd83647ac66c6af1a0731ce5a2d91c7a405f2f99040811fa6fe47"
+  version "2.0-33"
+  sha256 "eacb9853eb37095199d12ac6e3711578c9159074db8a7b1753511d2669d037cb"
 
   url "https://github.com/cemu-project/Cemu/releases/download/v#{version}/cemu-#{version}-macos-12-x64.dmg",
       verified: "github.com/cemu-project/Cemu/"
