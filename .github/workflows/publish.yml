@@ -14,6 +14,10 @@ jobs:
       - name: Set up git
         uses: Homebrew/actions/git-user-config@master
 
+      # needed for homebrew to pick up the homebrew-core dependencies in the formulae
+      - name: Tap homebrew/core
+        run: brew tap homebrew/homebrew-core
+
       - name: Pull bottles
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{ github.token }}
