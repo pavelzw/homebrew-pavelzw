@@ -17,6 +17,13 @@ class Pixi < Formula
     system "cargo", "install", *std_cargo_args
   end
 
+  def caveats
+    <<~EOS
+      To use the pixi global installations, add this to your .bashrc / .zshrc:
+        export PATH=$HOME/.pixi/bin:$PATH
+    EOS
+  end
+
   test do
     # https://github.com/prefix-dev/pixi/issues/92
     # assert_equal version, shell_output("#{bin}/pixi --version").strip
