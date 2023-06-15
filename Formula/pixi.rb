@@ -19,7 +19,7 @@ class Pixi < Formula
 
   def caveats
     <<~EOS
-      To complete the pixi, add this to your .bashrc / .zshrc:
+      To complete the pixi installation, add this to your .bashrc / .zshrc:
         export PATH=$HOME/.pixi/bin:$PATH
         eval "$(pixi completion)"
     EOS
