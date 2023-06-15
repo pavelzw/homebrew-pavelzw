@@ -19,8 +19,9 @@ class Pixi < Formula
 
   def caveats
     <<~EOS
-      To use the pixi global installations, add this to your .bashrc / .zshrc:
+      To complete the pixi, add this to your .bashrc / .zshrc:
         export PATH=$HOME/.pixi/bin:$PATH
+        eval "$(pixi completion)"
     EOS
   end
 
