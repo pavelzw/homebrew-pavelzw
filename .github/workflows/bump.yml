@@ -33,9 +33,9 @@ jobs:
       - name: brew bump-${{ matrix.type }}-pr ${{ matrix.name }}
         run: |
           brew bump-${{ matrix.type }}-pr pavelzw/pavelzw/${{ matrix.name }} --version=${{ steps.livecheck.outputs.new-version }} --no-browse --write-only
-        if: steps.livecheck.outputs.outdated == true
+        if: steps.livecheck.outputs.outdated == 'true'
       - name: Create Pull Request
-        if: steps.livecheck.outputs.outdated == true
+        if: steps.livecheck.outputs.outdated == 'true'
         uses: peter-evans/create-pull-request@v5
         with:
           title: ${{ matrix.name }} ${{ steps.livecheck.outputs.new-version }}
