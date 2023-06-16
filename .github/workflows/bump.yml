@@ -29,21 +29,23 @@ jobs:
     runs-on: macos-latest
     steps:
       - run: brew tap pavelzw/pavelzw
-      - run: |
+      - name: brew livecheck ${{ matrix.name }}
+        run: |
+            brew developer on
             echo outdated="$(brew livecheck pavelzw/pavelzw/${{ matrix.name }} --json | jq '.[0].version.outdated')" >> $GITHUB_OUTPUT
             echo new-version="$(brew livecheck pavelzw/pavelzw/${{ matrix.name }} --json | jq '.[0].version.latest')" >> $GITHUB_OUTPUT
         id: livecheck
         shell: bash -eo pipefail {0}
       - name: brew bump-${{ matrix.type }}-pr ${{ matrix.name }}
         run: |
-          brew bump-${{ matrix.type }}-pr pavelzw/pavelzw/${{ matrix.name }} --version=${{ steps.livecheck.outputs.new-version }} --no-browse --write-only
+          brew bump-${{ matrix.type }}-pr pavelzw/pavelzw/${{ matrix.name }} --version=${{ steps.livecheck.outputs.new-version }} --no-browse
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{ github.token }}
         if: steps.livecheck.outputs.outdated == 'true'
-      - name: Create Pull Request
-        if: steps.livecheck.outputs.outdated == 'true'
-        uses: peter-evans/create-pull-request@v5
-        with:
-          title: ${{ matrix.name }} ${{ steps.livecheck.outputs.new-version }}
-          delete-branch: true
-          branch: bump-${{ matrix.name }}-${{ steps.livecheck.outputs.new-version }}
+      # - name: Create Pull Request
+      #   if: steps.livecheck.outputs.outdated == 'true'
+      #   uses: peter-evans/create-pull-request@v5
+      #   with:
+      #     title: ${{ matrix.name }} ${{ steps.livecheck.outputs.new-version }}
+      #     delete-branch: true
+      #     branch: bump-${{ matrix.name }}-${{ steps.livecheck.outputs.new-version }}
