@@ -8,7 +8,7 @@ on:
 jobs:
   get-formulae-and-casks:
     name: Get formulae and casks
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.setmatrix.outputs.matrix }}
     steps:
@@ -35,6 +35,7 @@ jobs:
   bump-versions:
     needs: get-formulae-and-casks
     strategy:
+      fail-fast: false
       matrix:
         include: ${{ fromJson(needs.get-formulae-and-casks.outputs.matrix) }}
     name: Bump ${{ matrix.name }}
@@ -50,6 +51,7 @@ jobs:
             brew livecheck pavelzw/pavelzw/${{ matrix.name }} --json | jq '.[0].version.latest' > new-version
             echo new-version="$(cat new-version)" >> $GITHUB_OUTPUT
         id: livecheck
+        shell: bash -euxo pipefail {0}
       - name: Set up git
         if: steps.livecheck.outputs.outdated == 'true'
         run: |
