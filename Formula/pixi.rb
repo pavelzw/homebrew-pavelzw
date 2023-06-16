@@ -26,8 +26,7 @@ class Pixi < Formula
   end
 
   test do
-    # https://github.com/prefix-dev/pixi/issues/92
-    # assert_equal version, shell_output("#{bin}/pixi --version").strip
+    assert_equal "pixi #{version}", shell_output("#{bin}/pixi --version").strip
     system "#{bin}/pixi", "init"
     assert_path_exists testpath/"pixi.toml"
   end
