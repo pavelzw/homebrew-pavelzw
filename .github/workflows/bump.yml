@@ -15,7 +15,8 @@ jobs:
       - uses: actions/checkout@v3
       # https://stackoverflow.com/a/32354503/18839600
       # first, get all formulae through `ls` and convert them into a JSON array
-      # then, map the json array to {name: <formula-name>, type: formula}
+      # then, map the json array to {name: <formula-name>[:-3], type: formula}
+      # [:-3] is to remove the .rb extension
       - name: Get formulae
         run: |
           ls | jq -R -s 'split("\n")[:-1]' | jq 'map({name: ., type: "formula"})' > ../formulae.json
@@ -23,7 +24,7 @@ jobs:
       # same as above, but for casks
       - name: Get casks
         run: |
-          ls | jq -R -s 'split("\n")[:-1]' | jq 'map({name: ., type: "cask"})' > ../casks.json
+          ls | jq -R -s 'split("\n")[:-1]' | jq 'map({name: .[:-3], type: "cask"})' > ../casks.json
         working-directory: Casks
       # merge the two json arrays into one
       - name: Output matrix
@@ -46,7 +47,6 @@ jobs:
             echo outdated="$(brew livecheck pavelzw/pavelzw/${{ matrix.name }} --json | jq '.[0].version.outdated')" >> $GITHUB_OUTPUT
             echo new-version="$(brew livecheck pavelzw/pavelzw/${{ matrix.name }} --json | jq '.[0].version.latest')" >> $GITHUB_OUTPUT
         id: livecheck
-        shell: bash -eo pipefail {0}
       - name: Set up git
         if: steps.livecheck.outputs.outdated == 'true'
         run: |
