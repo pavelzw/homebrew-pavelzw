@@ -28,7 +28,7 @@ jobs:
       # merge the two json arrays into one
       - name: Output matrix
         run: |
-          echo matrix="$(jq -s '.[0] + .[1]' formulae.json casks.json)" >> $GITHUB_OUTPUT
+          echo matrix="$(jq -s -c '.[0] + .[1]' formulae.json casks.json)" >> $GITHUB_OUTPUT
         id: setmatrix
 
   bump-versions:
