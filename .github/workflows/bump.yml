@@ -6,20 +6,36 @@ on:
     - cron: "0 6 * * *"
 
 jobs:
+  get-formulae-and-casks:
+    name: Get formulae and casks
+    runs-on: macos-latest
+    outputs:
+      matrix: ${{ steps.setmatrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v3
+      # https://stackoverflow.com/a/32354503/18839600
+      # first, get all formulae through `ls` and convert them into a JSON array
+      # then, map the json array to {name: <formula-name>, type: formula}
+      - name: Get formulae
+        run: |
+          ls | jq -R -s 'split("\n")[:-1]' | jq 'map({name: ., type: "formula"})' > ../formulae.json
+        working-directory: Formula
+      # same as above, but for casks
+      - name: Get casks
+        run: |
+          ls | jq -R -s 'split("\n")[:-1]' | jq 'map({name: ., type: "cask"})' > ../casks.json
+        working-directory: Casks
+      # merge the two json arrays into one
+      - name: Output matrix
+        run: |
+          echo matrix="$(jq -s '.[0] + .[1]' formulae.json casks.json)" >> $GITHUB_OUTPUT
+        id: setmatrix
+
   bump-versions:
+    needs: get-formulae-and-casks
     strategy:
       matrix:
-        include:
-          - name: wiiu-cemu
-            type: cask
-          - name: ryujinx-ava
-            type: cask
-          - name: upscayl
-            type: cask
-          - name: cythonbuilder
-            type: formula
-          - name: pixi
-            type: formula
+        include: ${{ fromJson(needs.get-formulae-and-casks.outputs.matrix) }}
     name: Bump ${{ matrix.name }}
     runs-on: macos-latest
     steps:
@@ -31,9 +47,14 @@ jobs:
             echo new-version="$(brew livecheck pavelzw/pavelzw/${{ matrix.name }} --json | jq '.[0].version.latest')" >> $GITHUB_OUTPUT
         id: livecheck
         shell: bash -eo pipefail {0}
-      - name: brew bump-${{ matrix.type }}-pr ${{ matrix.name }}
-        run: |
-          brew bump-${{ matrix.type }}-pr pavelzw/pavelzw/${{ matrix.name }} --version=${{ steps.livecheck.outputs.new-version }} --no-browse
-        env:
-          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
+      - name: Set up git
         if: steps.livecheck.outputs.outdated == 'true'
+        run: |
+          git config --global user.email "126091039+pavelzw-bot@users.noreply.github.com"
+          git config --global user.name "pavelzw-bot"
+      # - name: brew bump-${{ matrix.type }}-pr ${{ matrix.name }}
+      #   if: steps.livecheck.outputs.outdated == 'true'
+      #   run: |
+      #     brew bump-${{ matrix.type }}-pr pavelzw/pavelzw/${{ matrix.name }} --version=${{ steps.livecheck.outputs.new-version }} --no-browse
+      #   env:
+      #     HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
