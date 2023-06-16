@@ -1,6 +1,5 @@
-name: Bump micromamba version
+name: brew bump
 on:
-  push:
   workflow_dispatch:
   schedule:
     # every day at 6am
