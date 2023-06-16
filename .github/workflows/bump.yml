@@ -1,5 +1,6 @@
 name: brew bump
 on:
+  push:
   workflow_dispatch:
   schedule:
     # every day at 6am
@@ -8,7 +9,7 @@ on:
 jobs:
   get-formulae-and-casks:
     name: Get formulae and casks
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     outputs:
       matrix: ${{ steps.setmatrix.outputs.matrix }}
     steps:
@@ -38,7 +39,7 @@ jobs:
       matrix:
         include: ${{ fromJson(needs.get-formulae-and-casks.outputs.matrix) }}
     name: Bump ${{ matrix.name }}
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - run: brew tap pavelzw/pavelzw
       - name: brew livecheck ${{ matrix.name }}
