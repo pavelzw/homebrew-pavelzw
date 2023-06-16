@@ -1,12 +1,13 @@
 name: Bump micromamba version
 on:
+  push:
   workflow_dispatch:
   schedule:
     # every day at 6am
     - cron: "0 6 * * *"
 
 jobs:
-  bump-micromamba:
+  bump-versions:
     strategy:
       matrix:
         include:
