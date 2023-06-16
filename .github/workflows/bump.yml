@@ -8,7 +8,7 @@ on:
 jobs:
   get-formulae-and-casks:
     name: Get formulae and casks
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.setmatrix.outputs.matrix }}
     steps:
@@ -38,11 +38,12 @@ jobs:
       matrix:
         include: ${{ fromJson(needs.get-formulae-and-casks.outputs.matrix) }}
     name: Bump ${{ matrix.name }}
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - run: brew tap pavelzw/pavelzw
       - name: brew livecheck ${{ matrix.name }}
         run: |
+            set -euxo pipefail
             brew developer on
             echo outdated="$(brew livecheck pavelzw/pavelzw/${{ matrix.name }} --json | jq '.[0].version.outdated')" >> $GITHUB_OUTPUT
             echo new-version="$(brew livecheck pavelzw/pavelzw/${{ matrix.name }} --json | jq '.[0].version.latest')" >> $GITHUB_OUTPUT
