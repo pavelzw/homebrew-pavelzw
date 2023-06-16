@@ -1,5 +1,6 @@
 name: brew bump
 on:
+  push:
   workflow_dispatch:
   schedule:
     # every day at 6am
@@ -10,14 +11,14 @@ jobs:
     strategy:
       matrix:
         include:
-          # - name: wiiu-cemu
-          #   type: cask
+          - name: wiiu-cemu
+            type: cask
           - name: ryujinx-ava
             type: cask
           - name: upscayl
             type: cask
-          # - name: cythonbuilder
-          #   type: formula
+          - name: cythonbuilder
+            type: formula
           # - name: pixi
           #   type: formula
     name: Bump ${{ matrix.name }}
@@ -39,3 +40,4 @@ jobs:
         with:
           title: ${{ matrix.name }} ${{ steps.livecheck.outputs.new-version }}
           delete-branch: true
+          branch: bump-${{ matrix.name }}-${{ steps.livecheck.outputs.new-version }}
