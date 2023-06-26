@@ -1,8 +1,8 @@
 class Pixi < Formula
   desc "Package management made easy"
   homepage "https://github.com/prefix-dev/pixi"
-  url "https://github.com/prefix-dev/pixi/archive/refs/tags/v0.0.4.tar.gz"
-  sha256 "304a31410e5679ce9df2f7417875f680b3efe3f3fb9fbd2a67b3a68303d42f0e"
+  url "https://github.com/prefix-dev/pixi/archive/refs/tags/v0.0.5.tar.gz"
+  sha256 "71454f08bc464b814979442e874610c332958f4e425da3bb6bfed54571c2dfea"
   license "BSD-3-Clause"
 
   depends_on "cmake" => :build
