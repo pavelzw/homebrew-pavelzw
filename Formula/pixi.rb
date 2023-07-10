@@ -4,6 +4,7 @@ class Pixi < Formula
   url "https://github.com/prefix-dev/pixi/archive/refs/tags/v0.0.6.tar.gz"
   sha256 "6ac7271458ed0da6c43a1cb59de68052064dd62f216a954f99aa412428d3f7d0"
   license "BSD-3-Clause"
+  head "https://github.com/prefix-dev/pixi.git", branch: "main"
 
   depends_on "cmake" => :build
   depends_on "rust" => :build
