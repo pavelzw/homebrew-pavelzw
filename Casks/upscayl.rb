@@ -4,9 +4,9 @@ cask "upscayl" do
 
   url "https://github.com/upscayl/upscayl/releases/download/v#{version}/upscayl-#{version}-mac.dmg",
       verified: "github.com/upscayl/upscayl/"
-  name "upscayl"
-  desc "Open Source AI Image Upscaler built with Linux-First philosophy"
-  homepage "https://upscayl.github.io/"
+  name "Upscayl"
+  desc "Linux-first FOSS AI image upscaler"
+  homepage "https://www.upscayl.org/"
 
   livecheck do
     url :url
@@ -18,6 +18,6 @@ cask "upscayl" do
   zap trash: [
     "~/Library/Application Support/Upscayl",
     "~/Library/Preferences/org.upscayl.app.plist",
-    "~/Library/Saved Applicatrtjion State/org.upscayl.app.savedState",
+    "~/Library/Saved Application State/org.upscayl.app.savedState",
   ]
 end
