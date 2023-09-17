@@ -4,8 +4,8 @@ cask "upscayl" do
 
   url "https://github.com/upscayl/upscayl/releases/download/v#{version}/upscayl-#{version}-mac.dmg",
       verified: "github.com/upscayl/upscayl/"
-  name "upscayl"
-  desc "Open Source AI Image Upscaler built with Linux-First philosophy"
+  name "Upscayl"
+  desc "Linux-first FOSS AI image upscaler"
   homepage "https://www.upscayl.org/"
 
   livecheck do
