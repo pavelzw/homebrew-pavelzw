@@ -59,7 +59,10 @@ jobs:
           git config --global user.name "pavelzw-bot"
       - name: brew bump-${{ matrix.type }}-pr ${{ matrix.name }}
         if: steps.livecheck.outputs.outdated == 'true'
-        run: |
-          brew bump-${{ matrix.type }}-pr pavelzw/pavelzw/${{ matrix.name }} --version=${{ steps.livecheck.outputs.new-version }} --no-browse
+        run: >-
+          brew bump-${{ matrix.type }}-pr
+          pavelzw/pavelzw/${{ matrix.name }}
+          --version=${{ steps.livecheck.outputs.new-version }}
+          --no-browse
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
