@@ -8,7 +8,6 @@ cask "ryujinx-ava" do
   desc "Nintendo Switch emulator"
   homepage "https://ryujinx.org/"
 
-  conflicts_with cask: "p-linnane/cask-unsigned/ryujinx"
   depends_on macos: ">= :big_sur"
 
   app "Ryujinx.app"
