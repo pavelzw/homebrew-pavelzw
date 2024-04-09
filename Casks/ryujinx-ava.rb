@@ -1,6 +1,6 @@
 cask "ryujinx-ava" do
-  version "1.1.1268"
-  sha256 "a0a7491b2031dcbf72d72008bfdb84b4b38173806baf9d4ad2b5194fd0e81615"
+  version "1.1.1269"
+  sha256 "eefc15b2d95322c31ed3a8b81ce52ad22fb88e9730dd217e36de469d80e5e395"
 
   url "https://github.com/Ryujinx/release-channel-master/releases/download/#{version}/test-ava-ryujinx-#{version}-macos_universal.app.tar.gz",
       verified: "github.com/Ryujinx/release-channel-master/"
