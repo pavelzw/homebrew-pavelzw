@@ -1,8 +1,8 @@
 cask "wiiu-cemu" do
   # this formula cannot be named cemu because it conflicts with the CEmu emulator for TI calculators
   # https://docs.brew.sh/How-to-Create-and-Maintain-a-Tap#naming
-  version "2.0-75"
-  sha256 "12d7687664569b5668d22a68aca506cfa8f388c5c9ef9c8083a905f24d9fdaa7"
+  version "2.0-77"
+  sha256 "d5693c1f83acabb88d5f2b0ebe19127835413e65080312b223aaf4a6bed5d131"
 
   url "https://github.com/cemu-project/Cemu/releases/download/v#{version}/cemu-#{version}-macos-12-x64.dmg",
       verified: "github.com/cemu-project/Cemu/"
