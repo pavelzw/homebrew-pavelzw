@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   schedule:
     # every day at 6am
-    - cron: "0 6 * * *"
+    - cron: 0 6 * * *
 
 jobs:
   get-formulae-and-casks:
@@ -19,17 +19,19 @@ jobs:
       # [:-3] is to remove the .rb extension
       - name: Get formulae
         run: |
+          # shellcheck disable=SC2012
           ls | jq -R -s 'split("\n")[:-1]' | jq 'map({name: .[:-3], type: "formula"})' > ../formulae.json
         working-directory: Formula
       # same as above, but for casks
       - name: Get casks
         run: |
+          # shellcheck disable=SC2012
           ls | jq -R -s 'split("\n")[:-1]' | jq 'map({name: .[:-3], type: "cask"})' > ../casks.json
         working-directory: Casks
       # merge the two json arrays into one
       - name: Output matrix
         run: |
-          echo matrix="$(jq -s -c '.[0] + .[1]' formulae.json casks.json)" >> $GITHUB_OUTPUT
+          echo matrix="$(jq -s -c '.[0] + .[1]' formulae.json casks.json)" >> "$GITHUB_OUTPUT"
         id: setmatrix
 
   bump-versions:
@@ -46,17 +48,17 @@ jobs:
         run: |
             set -euxo pipefail
             brew developer on
-            brew livecheck pavelzw/pavelzw/${{ matrix.name }} --json | jq '.[0].version.outdated' > outdated
-            echo outdated="$(cat outdated)" >> $GITHUB_OUTPUT
-            brew livecheck pavelzw/pavelzw/${{ matrix.name }} --json | jq '.[0].version.latest' > new-version
-            echo new-version="$(cat new-version)" >> $GITHUB_OUTPUT
+            brew livecheck "pavelzw/pavelzw/${{ matrix.name }}" --json | jq '.[0].version.outdated' > outdated
+            echo outdated="$(cat outdated)" >> "$GITHUB_OUTPUT"
+            brew livecheck "pavelzw/pavelzw/${{ matrix.name }}" --json | jq '.[0].version.latest' > new-version
+            echo new-version="$(cat new-version)" >> "$GITHUB_OUTPUT"
         id: livecheck
         shell: bash -euxo pipefail {0}
       - name: Set up git
         if: steps.livecheck.outputs.outdated == 'true'
         run: |
           git config --global user.email "126091039+pavelzw-bot@users.noreply.github.com"
-          git config --global user.name "pavelzw-bot"
+          git config --global user.name pavelzw-bot
       - name: brew bump-${{ matrix.type }}-pr ${{ matrix.name }}
         if: steps.livecheck.outputs.outdated == 'true'
         run: >-

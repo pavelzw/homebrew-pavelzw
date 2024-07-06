@@ -13,4 +13,8 @@ cask "wiiu-cemu" do
   depends_on macos: ">= :monterey"
 
   app "Cemu.app"
+
+  caveats do
+    requires_rosetta
+  end
 end
