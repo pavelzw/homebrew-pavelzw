@@ -1,4 +1,5 @@
 {
   "pixi": "homebrew/core",
-  "rattler-build": "homebrew/core"
+  "rattler-build": "homebrew/core",
+  "upscayl": "homebrew/cask"
 }
