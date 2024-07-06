@@ -46,17 +46,17 @@ jobs:
         run: |
             set -euxo pipefail
             brew developer on
-            brew livecheck pavelzw/pavelzw/${{ matrix.name }} --json | jq '.[0].version.outdated' > outdated
-            echo outdated="$(cat outdated)" >> $GITHUB_OUTPUT
-            brew livecheck pavelzw/pavelzw/${{ matrix.name }} --json | jq '.[0].version.latest' > new-version
-            echo new-version="$(cat new-version)" >> $GITHUB_OUTPUT
+            brew livecheck "pavelzw/pavelzw/${{ matrix.name }}" --json | jq '.[0].version.outdated' > outdated
+            echo outdated="$(cat outdated)" >> "$GITHUB_OUTPUT"
+            brew livecheck "pavelzw/pavelzw/${{ matrix.name }}" --json | jq '.[0].version.latest' > new-version
+            echo new-version="$(cat new-version)" >> "$GITHUB_OUTPUT"
         id: livecheck
         shell: bash -euxo pipefail {0}
       - name: Set up git
         if: steps.livecheck.outputs.outdated == 'true'
         run: |
           git config --global user.email "126091039+pavelzw-bot@users.noreply.github.com"
-          git config --global user.name "pavelzw-bot"
+          git config --global user.name pavelzw-bot
       - name: brew bump-${{ matrix.type }}-pr ${{ matrix.name }}
         if: steps.livecheck.outputs.outdated == 'true'
         run: >-
