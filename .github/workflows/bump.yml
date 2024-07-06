@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   schedule:
     # every day at 6am
-    - cron: "0 6 * * *"
+    - cron: 0 6 * * *
 
 jobs:
   get-formulae-and-casks:
