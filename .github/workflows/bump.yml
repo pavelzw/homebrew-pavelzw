@@ -12,7 +12,7 @@ jobs:
     outputs:
       matrix: ${{ steps.setmatrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       # https://stackoverflow.com/a/32354503/18839600
       # first, get all formulae through `ls` and convert them into a JSON array
       # then, map the json array to {name: <formula-name>[:-3], type: formula}
